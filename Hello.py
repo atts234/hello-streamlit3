@@ -1,51 +1,50 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
-from streamlit.logger import get_logger
 
-LOGGER = get_logger(__name__)
+def main():
+    # Multi-language dictionary
+    languages = {
+        "English": {
+            "title": "Waste Management Insights",
+            "select_language": "Choose Language",
+            "caption_1": "Correlation Matrix After Cleaning Data",
+            "caption_2": "Global Waste Statistics",
+            "caption_3": "OLS Regression Results",
+            "caption_4": "Correlation Matrix for Carbon Intensity",
+            "caption_5": "Correlation Matrix for Society"
+        },
+        "Spanish": {
+            "title": "Perspectivas de la Gestión de Residuos",
+            "select_language": "Elegir idioma",
+            "caption_1": "Matriz de correlación después de la limpieza de datos",
+            "caption_2": "Estadísticas globales de residuos",
+            "caption_3": "Resultados de la regresión OLS",
+            "caption_4": "Matriz de correlación para la intensidad de carbono",
+            "caption_5": "Matriz de correlación para la sociedad"
+        }
+        # Add more languages as needed
+    }
 
+    # Select language
+    st.sidebar.title("Settings")
+    language = st.sidebar.selectbox("Choose Language", options=list(languages.keys()))
 
-def run():
-    st.set_page_config(
-        page_title="Hello sir ",
-        page_icon="👋",
-    )
+    # Set the title of the dashboard
+    st.title(languages[language]["title"])
 
-    st.write("# Welcome to Streamlit! 👋")
+    # Image URLs (update with your actual URLs)
+    image_urls = [
+        ("https://raw.githubusercontent.com/atts234/hello-streamlit3/main/Picture1.png", languages[language]["caption_1"]),
+        ("https://raw.githubusercontent.com/atts234/hello-streamlit3/main/Picture2.jpg", languages[language]["caption_2"]),
+        ("https://raw.githubusercontent.com/atts234/hello-streamlit3/main/Picture3.png", languages[language]["caption_3"]),
+        ("https://raw.githubusercontent.com/atts234/hello-streamlit3/main/Picture5.png", languages[language]["caption_4"]),
+        ("https://raw.githubusercontent.com/atts234/hello-streamlit3/main/Picture6.png", languages[language]["caption_5"])
+    ]
 
-    st.sidebar.success("Select a demo above.")
-
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
-
+    # Display images in a two-column layout
+    cols = st.columns(2)
+    for idx, (img_url, caption) in enumerate(image_urls):
+        with cols[idx % 2]:
+            st.image(img_url, caption=caption)
 
 if __name__ == "__main__":
-    run()
+    main()
